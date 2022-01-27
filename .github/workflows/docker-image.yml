@@ -21,8 +21,8 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag georgemore00/react-image:$(date +%s)
-      
+      run: docker build . --file Dockerfile --tag georgemore00/mv-projektkurs:$(date +%s)
+
     - name: Docker Push
-      run: docker push georgemore00/react-image
+      run: docker push georgemore00/mv-projektkurs
       
