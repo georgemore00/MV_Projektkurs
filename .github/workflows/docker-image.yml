@@ -24,5 +24,5 @@ jobs:
       run: docker build . --file Dockerfile --tag georgemore00/react-image:$(date +%s)
       
     - name: Docker Push
-      run: docker push georgemore00/mv-projektkurs
+      run: docker push georgemore00/react-image
       
