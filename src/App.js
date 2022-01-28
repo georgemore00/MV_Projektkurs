@@ -11,7 +11,7 @@ function App() {
   //Load bodyPix
   const runBodysegment = async () => {
     const net = await bodyPix.load();
-    console.log("BodyPix model loaded.");
+    console.log("BodyPix model loaded. + hej");
     //Loop and detect hands
     setInterval(() => {
       detect(net);
@@ -58,9 +58,9 @@ function App() {
   function draw(x,y) {
       var canvas = document.getElementById('board');
 
-          var ctx = canvas.getContext('2d');
+      var ctx = canvas.getContext('2d');
 
-          ctx.fillRect(x,y, 20, 20);
+      ctx.fillRect(x,y, 20, 20);
   }
 
   runBodysegment()
