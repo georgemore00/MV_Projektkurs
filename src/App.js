@@ -59,8 +59,9 @@ function App() {
       var canvas = document.getElementById('board');
 
       var ctx = canvas.getContext('2d');
-
+      ctx.fillStyle = "#FFFF00";
       ctx.fillRect(x,y, 20, 20);
+
   }
 
   runBodysegment()
@@ -80,8 +81,8 @@ function App() {
                   right: 0,
                   textAlign: "center",
                   zindex: 9,
-                  width: 640,
-                  height: 480,
+                  width: 0,
+                  height: 0,
               }}
           />
 
@@ -95,8 +96,9 @@ function App() {
             right: 0,
             textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
+            width: 800,
+            height: 600,
+            //background: 'white',
           }}
         />
 
