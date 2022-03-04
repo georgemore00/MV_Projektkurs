@@ -11,9 +11,6 @@ import {
     Link,
     Outlet,
 } from "react-router-dom";
-import App from "../App";
-
-// import your route components too
 
 export default class NavbarComponent extends React.Component {
     render() {
