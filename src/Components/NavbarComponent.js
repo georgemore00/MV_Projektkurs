@@ -4,6 +4,7 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { render } from "react-dom";
 import Detection from "./DetectionComponent";
 import ImageLoadComponent from "./ImageLoadComponent"
+import GetImageComponentfrom from "./GetImageComponent"
 import {
     Routes,
     BrowserRouter as Router,
@@ -25,7 +26,10 @@ export default class NavbarComponent extends React.Component {
                                     Detection
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/LoadImage">
-                                    ImageLoadComponent
+                                    Calibrate
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/GetImage">
+                                    GetImage
                                 </Nav.Link>
                             </Nav>
                         </Container>
@@ -35,6 +39,7 @@ export default class NavbarComponent extends React.Component {
                     <Routes>
                         <Route path="/Detect" element={<Detection />} />
                         <Route path="/LoadImage" element={<ImageLoadComponent />} />
+                        <Route path="/GetImage" element={<GetImageComponentfrom />} />
                     </Routes>
                 </div>
             </Router>

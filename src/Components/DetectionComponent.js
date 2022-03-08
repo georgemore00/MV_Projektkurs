@@ -60,13 +60,23 @@ const Detection = () => {
 
     }
 
-    function xFunc(x) {
-        return (0.7 * x + 133.7)
-    }
+    //Funkar bara om vi har kalibrerat först
+    /*function yFunc(x) {
+        return (xy * m + by)
+    }*/
 
-    function yFunc(x) {
+    //Funkar bara om vi har kalibrerat först
+    /*function xFunc(x) {
+        return (xx * m + bx)
+    }*/
+
+    /*function xFunc(x) {
+        return (0.7 * x + 133.7)
+    }*/
+
+    /*function yFunc(x) {
         return (0.77 * x + 93)
-    }
+    }*/
 
 
     runBodysegment()
