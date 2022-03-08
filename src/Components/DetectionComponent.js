@@ -2,12 +2,15 @@ import React, { useRef } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as bodyPix from "@tensorflow-models/body-pix";
 import Webcam from "react-webcam";
+import "C:/Users/qriti/OneDrive/Dokument/mvproject/src/App.css"
 
 
 const Detection = () => {
 
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+
+
 
     //Load bodyPix
     const runBodysegment = async () => {
@@ -42,7 +45,7 @@ const Detection = () => {
 
             const person = await net.segmentPersonParts(video);
 
-            draw(person.allPoses[0].keypoints[10].position.x, person.allPoses[0].keypoints[10].position.y);
+            draw(xFunc(person.allPoses[0].keypoints[10].position.x), yFunc(person.allPoses[0].keypoints[10].position.y));
         }
     };
 
@@ -57,18 +60,24 @@ const Detection = () => {
         //ctx.fillStyle = "#FFFF00";
         //ctx.fillRect(xFunc(x), yFunc(y), 10, 10);
         ctx.fillRect(x, y, 10, 10);
-
     }
 
     //Funkar bara om vi har kalibrerat först
-    /*function yFunc(x) {
-        return (xy * m + by)
-    }*/
+    function yFunc(x) {
+        var my = parseFloat(sessionStorage.getItem("my"));
+        var by = parseFloat(sessionStorage.getItem("by"));
+        var y = (x * my + by);
+        console.log(y);
+        return y
+    }
 
     //Funkar bara om vi har kalibrerat först
-    /*function xFunc(x) {
-        return (xx * m + bx)
-    }*/
+    function xFunc(x) {
+        var mx = parseFloat(sessionStorage.getItem("mx"));
+        var bx = parseFloat(sessionStorage.getItem("bx"));
+        var y = (x * mx + bx);
+        return y
+    }
 
     /*function xFunc(x) {
         return (0.7 * x + 133.7)
