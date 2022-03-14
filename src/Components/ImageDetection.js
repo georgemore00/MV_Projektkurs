@@ -1,22 +1,19 @@
 import React, { useRef } from "react";
-import * as tf from "@tensorflow/tfjs";
 import * as bodyPix from "@tensorflow-models/body-pix";
 import Webcam from "react-webcam";
-import "C:/Users/qriti/OneDrive/Dokument/mvproject/src/App.css"
+import "../App.css"
 
-
-const Detection = () => {
+const ImageDetection = () => {
 
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
-
-
     //Load bodyPix
     const runBodysegment = async () => {
         const net = await bodyPix.load();
-        console.log("BodyPix model loaded. + hej");
-        //Loop and detect hands
+        console.log("BodyPix model loaded");
+
+        //Loop and detect bodypart
         setInterval(() => {
             detect(net);
         }, 100);
@@ -49,55 +46,64 @@ const Detection = () => {
         }
     };
 
-
+    /* Will draw two rectangles, one at an hardcoded coordinate and one at coordinates recieved from bodypix.
+     * The hardcoded is used to center the person. Should hit the person at about waist/belt level.
+     */
     function draw(x, y) {
-        var canvas = document.getElementById('board');
+        var canvas = document.getElementById('detectionboard');
 
         var ctx = canvas.getContext('2d');
 
         ctx.fillRect(300.0, 300.0, 10, 10);
 
-        //ctx.fillStyle = "#FFFF00";
-        //ctx.fillRect(xFunc(x), yFunc(y), 10, 10);
-        ctx.fillRect(x, y, 10, 10);
+        console.log("X: " + x + " Y: " + y)
+
+        ctx.fillStyle = "#FFFF00";
+        ctx.fillRect(xFunc(x), yFunc(y), 10, 10);
     }
 
-    //Funkar bara om vi har kalibrerat först
-    function yFunc(x) {
-        var my = parseFloat(sessionStorage.getItem("my"));
-        var by = parseFloat(sessionStorage.getItem("by"));
-        var y = (x * my + by);
-        console.log(y);
-        return y
-    }
-
-    //Funkar bara om vi har kalibrerat först
+    // Only works if an image has been taken, uploaded and successfully analysed.
     function xFunc(x) {
         var mx = parseFloat(sessionStorage.getItem("mx"));
         var bx = parseFloat(sessionStorage.getItem("bx"));
-        var y = (x * mx + bx);
+        var y = (x * mx - bx);
+        console.log("mx: " + mx + " bx: " + bx)
+
         return y
     }
 
-    /*function xFunc(x) {
-        return (0.7 * x + 133.7)
-    }*/
+    // Only works if an image has been taken, uploaded and successfully analysed.
+    function yFunc(x) {
+        var my = parseFloat(sessionStorage.getItem("my"));
+        var by = parseFloat(sessionStorage.getItem("by"));
+        var y = (x * my - by);
+        console.log("my: " + my + " by: " + by)
 
-    /*function yFunc(x) {
-        return (0.77 * x + 93)
-    }*/
-
+        return y
+    }
 
     runBodysegment()
 
-
     return (
-
         <div className="App">
             <header className="App-header">
-
                 <Webcam
                     ref={webcamRef}
+                    style={{
+                        position: "absolute",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        left: 0,
+                        right: 0,
+                        textAlign: "center",
+                        zindex: 9,
+                        width: 0,
+                        height: 0,
+                    }}
+                />
+
+                <canvas id="detectionboard"
+                    ref={canvasRef}
                     style={{
                         position: "absolute",
                         marginLeft: "auto",
@@ -110,26 +116,9 @@ const Detection = () => {
                         height: 600,
                     }}
                 />
-
-                <canvas id="board"
-                        ref={canvasRef}
-                        style={{
-                            position: "absolute",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 800,
-                            height: 600,
-                            //background: 'white',
-                        }}
-                />
-
             </header>
         </div>
     );
 }
 
-export default Detection;
+export default ImageDetection;
