@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import * as bodyPix from "@tensorflow-models/body-pix";
+import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import "../App.css"
 
